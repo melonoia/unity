@@ -7,8 +7,7 @@ public class DetectCollisions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Destroy ball and dog on collision
+        // Destroy ball on collision with dog
         Destroy(gameObject);
-        Destroy(other.gameObject);
     }
 }
