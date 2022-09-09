@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem explosionParticle;
     public ParticleSystem fireworksParticle;
 
+    public MeshRenderer playerMesh;
+
     private AudioSource playerAudio;
     public AudioSource cameraSound;
     public AudioClip moneySound;
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         cameraSound = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         playerRb = GetComponent<Rigidbody>();
+        playerMesh = GetComponent<MeshRenderer>();
+        playerMesh.enabled = true;
 
         // Apply a small upward force at the start of the game
         playerRb.AddForce(Vector3.up * 1, ForceMode.Impulse);
@@ -64,9 +68,10 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(explodeSound, 1.0f);
             gameOver = true;
             Destroy(other.gameObject);
+            playerMesh = false;
             cameraSound.Stop();
             Debug.Log("Game Over!");
-            transform.DetachChildren();
+
         }
 
         // if player collides with money, fireworks
@@ -82,12 +87,6 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(balloonSound, 1.0f);
             isLowEnough = true;
             playerRb.AddForce(Vector3.up * 3, ForceMode.Impulse);
-        }
-
-        // Remove player on explosion
-        if (gameOver == true)
-        {
-            Destroy(gameObject);
         }
     }
 }
