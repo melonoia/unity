@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public bool gameOver;
     private bool isLowEnough;
-    private float topLimit = 10.5f;
+    private float topLimit = 9.0f;
 
     public float floatForce;
     private float gravityModifier = 1.0f;
@@ -69,9 +69,12 @@ public class PlayerController : MonoBehaviour
             gameOver = true;
             Destroy(other.gameObject);
             playerMesh = false;
-            cameraSound.Stop();
             Debug.Log("Game Over!");
-
+        }
+        
+         else if(playerMesh.enabled == false){
+            cameraSound.Stop();
+        	Destroy(gameObject);
         }
 
         // if player collides with money, fireworks
